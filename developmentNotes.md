@@ -1,35 +1,12 @@
 # Munro Library Challenge
 
-## Rough Todos
+## Rough Sketch
 
-1. Create a package project
-2. Create a data store component
-    1. Protocol based
-    2. Have an instance which loads from the CSV file
-    3. Write a stub for one which can receive JSON?
-    4. Contains a set of Munro objects
-3. Package project should expose some interfaces 
-    1. loadData(_ fileLocation: String?) throws -> ()
-    2. performQuery(_ query: QUERY_TYPE) -> []
-4. We will need a query object with these fields
-    1. Category (Munro, Monro Top, Either)
-    2. Sorting
-        1. Order (ascending, descending) [default: descending]
-        2. PropertyToSortBy(height, name) [default: name]
-        3. Additional property: .nestedSort([SortableProperty])
-            1. Needs to be an additional indirect case of the enum
-            2. Function should loop through the properties passed in
-            3. If there is a pervious property, identify array slices which contain identical according to the last property and sequential.
-            4. If there is not, take the whole array as a slice
-            5. Sort the slices independently using the current property
-    3. HeightRange
-        1. Min: Float [default: 0]
-        2. Max: Float [default: .greatestFiniteMagnitude]
-        3. Note that a height range must be initialised with a greater max than min.
-5. We need a Munro data type for getting it back
-    1. Could include number of excluded or filtered instances.
-6. Make a dummy app to embed the framework in.
-    1. App should launch and display the result of a simple query.
+1. Lets do this TDD
+2. Start with testing entities
+3. Then test the store
+4. Then test the query tool
+5. Finally test the module
     
 ## Dangers
 
