@@ -3,16 +3,42 @@ import XCTest
 
 final class MunroQueryTests: XCTestCase {
     
+    func testEmptyQueryHasNoFilters() {
+        guard let query = try? MunroQuery() else {
+            return XCTFail("Could not initialise query")
+        }
+        
+        XCTAssertNil(query.categoryFilter)
+        XCTAssertNil(query.heightRange)
+        XCTAssertNil(query.sorting)
+    }
+    
     func testHeightRange() {
         let expectedHeightRange: ClosedRange<Float> = Float.random(in: 0..<100)...Float.random(in: 100..<200)
         
-        let munroQuery = try? MunroQuery(minimumHeightMeters: expectedHeightRange.lowerBound, maximumHeightMeters: expectedHeightRange.upperBound)
+        let optionalMunroQuery = try? MunroQuery(minimumHeightMeters: expectedHeightRange.lowerBound, maximumHeightMeters: expectedHeightRange.upperBound)
         
         
-        guard let realQuery = munroQuery else {
+        guard let munroQuery = optionalMunroQuery else {
             return XCTFail("Could not initialise query")
         }
-        XCTAssertEqual(realQuery.heightRange, expectedHeightRange)
+        XCTAssertEqual(munroQuery.heightRange, expectedHeightRange)
+    }
+    
+    func testHeightMinimumOnly() {
+        let expectedHeightRange: ClosedRange<Float> = Float.random(in: 0..<200)...Float.greatestFiniteMagnitude
+        
+        let query = try? MunroQuery(minimumHeightMeters: expectedHeightRange.lowerBound, maximumHeightMeters: nil)
+        
+        XCTAssertEqual(expectedHeightRange, query?.heightRange)
+    }
+    
+    func testHeightMaximumOnly() {
+        let expectedHeightRange: ClosedRange<Float> = Float.leastNormalMagnitude...Float.random(in: 0..<200)
+        
+        let query = try? MunroQuery(minimumHeightMeters: nil, maximumHeightMeters: expectedHeightRange.upperBound)
+        
+        XCTAssertEqual(expectedHeightRange, query?.heightRange)
     }
     
     func testInvalidHeightRange() {
@@ -36,32 +62,29 @@ final class MunroQueryTests: XCTestCase {
             XCTAssertEqual(munroQueryError, expectedError)
         }
     }
+    
+    func testCategoryFilter() {
+        let expectedCategory: MunroCategory = .top
+        
+        let query = try? MunroQuery(categoryFilter: .top)
+        
+        XCTAssertEqual(expectedCategory, query?.categoryFilter)
+    }
+    
+    func testSorting() {
+        let expectedSorting = MunroQuerySorting()
+        
+        let query = try? MunroQuery(sorting: expectedSorting)
+        
+        XCTAssertEqual(expectedSorting, query?.sorting)
+    }
 
     static var allTests = [
         ("testHeightRange", testHeightRange),
-        ("testInvalidHeightRange", testInvalidHeightRange)
+        ("testInvalidHeightRange", testInvalidHeightRange),
+        ("testHeightMinimumOnly", testHeightMinimumOnly),
+        ("testHeightMaximumOnly", testHeightMaximumOnly),
+        ("testCategoryFilter", testCategoryFilter),
+        ("testSorting", testSorting)
     ]
-}
-
-struct MunroQuery {
-    let heightRange: ClosedRange<Float>?
-    
-    init(minimumHeightMeters: Float?, maximumHeightMeters: Float?) throws {
-        switch (minimumHeightMeters, maximumHeightMeters) {
-        case let (.some(lowerHeight), .some(upperHeight)) where lowerHeight <= upperHeight:
-            heightRange = lowerHeight...upperHeight
-        case (.some(_), .some(_)):
-            throw MunroQueryError.badHeightRange
-        case let (nil, .some(upperHeight)):
-            heightRange = Float.leastNormalMagnitude...upperHeight
-        case let (.some(lowerHeight), nil):
-            heightRange = lowerHeight...Float.greatestFiniteMagnitude
-        case (nil, nil):
-            heightRange = nil
-        }
-    }
-}
-
-enum MunroQueryError: Error {
-    case badHeightRange
 }

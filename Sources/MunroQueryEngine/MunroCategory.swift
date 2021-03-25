@@ -8,5 +8,5 @@
 import Foundation
 
 public enum MunroCategory {
-    case munro, top, either
+    case munro, top
 }

@@ -7,7 +7,7 @@ final class MunroTests: XCTestCase {
     func testMunro() {
         let expectedHeight: Float = Float.random(in: -10000..<10000)
         let expectedName: String = UUID().uuidString
-        let expectedCategory: MunroCategory = .either
+        let expectedCategory: MunroCategory = .top
         let expectedRunningNumber: UInt = UInt.random(in: 0..<100000)
         
         let munro = Munro(
