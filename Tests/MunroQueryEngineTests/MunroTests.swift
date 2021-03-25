@@ -4,6 +4,10 @@ import XCTest
 // For the purposes of brevity I'm only going to test & initialise the core properties we care about.
 final class MunroTests: XCTestCase {
     
+    static var allTests = [
+        ("testMunro", testMunro),
+    ]
+    
     func testMunro() {
         let expectedHeight: Float = Float.random(in: -10000..<10000)
         let expectedName: String = UUID().uuidString
@@ -21,8 +25,4 @@ final class MunroTests: XCTestCase {
         XCTAssertEqual(munro.name, expectedName)
         XCTAssertEqual(munro.runningNumber, expectedRunningNumber)
     }
-
-    static var allTests = [
-        ("testMunro", testMunro),
-    ]
 }

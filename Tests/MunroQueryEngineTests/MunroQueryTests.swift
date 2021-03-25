@@ -3,6 +3,15 @@ import XCTest
 
 final class MunroQueryTests: XCTestCase {
     
+    static var allTests = [
+        ("testHeightRange", testHeightRange),
+        ("testInvalidHeightRange", testInvalidHeightRange),
+        ("testHeightMinimumOnly", testHeightMinimumOnly),
+        ("testHeightMaximumOnly", testHeightMaximumOnly),
+        ("testCategoryFilter", testCategoryFilter),
+        ("testSorting", testSorting)
+    ]
+    
     func testEmptyQueryHasNoFilters() {
         guard let query = try? MunroQuery() else {
             return XCTFail("Could not initialise query")
@@ -72,19 +81,12 @@ final class MunroQueryTests: XCTestCase {
     }
     
     func testSorting() {
-        let expectedSorting = MunroQuerySorting()
+        let expectedSorting = MunroQuerySorting(
+            order: .ascending,
+            propertyToSortBy: .height)
         
         let query = try? MunroQuery(sorting: expectedSorting)
         
         XCTAssertEqual(expectedSorting, query?.sorting)
     }
-
-    static var allTests = [
-        ("testHeightRange", testHeightRange),
-        ("testInvalidHeightRange", testInvalidHeightRange),
-        ("testHeightMinimumOnly", testHeightMinimumOnly),
-        ("testHeightMaximumOnly", testHeightMaximumOnly),
-        ("testCategoryFilter", testCategoryFilter),
-        ("testSorting", testSorting)
-    ]
 }
