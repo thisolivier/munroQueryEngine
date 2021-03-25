@@ -4,7 +4,8 @@ import XCTest
 final class MunroQuerySortingTests: XCTestCase {
     
     static var allTests = [
-        ("testMunroQuerySorting", testMunroQuerySorting)
+        ("testMunroQuerySorting", testMunroQuerySorting),
+        ("testMunroQueryNestedSorting", testMunroQueryNestedSorting)
     ]
     
     func testMunroQuerySorting() {

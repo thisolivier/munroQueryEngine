@@ -4,7 +4,9 @@ import XCTest
 public func allTests() -> [XCTestCaseEntry] {
     return [
         testCase(MunroTests.allTests),
-        testCase(MunroQueryTests.allTests)
+        testCase(MunroQueryTests.allTests),
+        testCase(MunroQuerySortingTests.allTests),
+        testCase(MunroStoreTests.allTests)
     ]
 }
 #endif
