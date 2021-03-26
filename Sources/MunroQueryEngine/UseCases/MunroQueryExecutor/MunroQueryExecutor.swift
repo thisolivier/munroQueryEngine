@@ -28,7 +28,7 @@ public enum MunroQueryExecutor: MunroQueryExecutable {
     
     private static func unpackQuery(_ query: MunroQuery) -> ((_: Set<Munro>) throws -> [Munro]) {
         var filterOperations: [(_: Set<Munro>) -> Set<Munro>] = []
-        var sortingOperations: [(_: [Munro]) -> [Munro]] = []
+        var sortingOperations: [(_: [Munro]) throws -> [Munro]] = []
         if let categoryFilter = query.categoryFilter {
             filterOperations.append({ set in
                 set.filter { $0.category == categoryFilter }
@@ -63,7 +63,7 @@ public enum MunroQueryExecutor: MunroQueryExecutable {
                     }
                 }})
             case .nestedSort(let nested):
-                sortingOperations.append { throw MunroQueryEngineError.queryError(.nestedSortNotYetSupported) }
+                sortingOperations.append { _ in throw MunroQueryEngineError.queryError(.nestedSortNotYetSupported) }
             }
         }
         
@@ -71,7 +71,7 @@ public enum MunroQueryExecutor: MunroQueryExecutable {
             var mutableSet = set
             for filter in filterOperations { mutableSet = filter(set) }
             var mutableArray = Array(mutableSet)
-            for sort in sortingOperations { mutableArray = sort(mutableArray) }
+            for sort in sortingOperations { mutableArray = try sort(mutableArray) }
             return mutableArray
         }
     }

@@ -53,7 +53,7 @@ final class MunroQueryTests: XCTestCase {
     func testInvalidHeightRange() {
         let irrationalMinimum: Float = Float.random(in: 100..<200)
         let irrationalMaximum: Float = Float.random(in: 0..<100)
-        let expectedError: MunroQueryError = .badHeightRange
+        let expectedError: MunroQueryEngineError = .queryError(.badHeightRange)
         
         let badInitialisationOfQuery: ()throws -> () = {
             _ = try MunroQuery(
@@ -65,7 +65,7 @@ final class MunroQueryTests: XCTestCase {
             try badInitialisationOfQuery(),
             "Query should throw error with bad height range"
         ) { error in
-            guard let munroQueryError = error as? MunroQueryError else {
+            guard let munroQueryError = error as? MunroQueryEngineError else {
                 return XCTFail("Unexpected error received. Exprecting MunroQueryError")
             }
             XCTAssertEqual(munroQueryError, expectedError)

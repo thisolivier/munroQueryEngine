@@ -8,6 +8,13 @@ final class MunroQueryExecutorTests: XCTestCase {
     
     static var allTests = [
         ("testExcludesMunrosWithNoCategory", testExcludesMunrosWithNoCategory),
+        ("testCorrectNumberOfMunros", testCorrectNumberOfMunros),
+        ("testReturnsCorrectCategory", testReturnsCorrectCategory),
+        ("testReturnsCorrectCategory", testReturnsCorrectCategory),
+        ("testReturnsCorrectHeightRange", testReturnsCorrectHeightRange),
+        ("testDescendingNameSorting", testDescendingNameSorting),
+        ("testDescendingHeightSorting", testDescendingHeightSorting),
+        ("testAscendingHeightSorting", testAscendingHeightSorting)
     ]
     
     func testCorrectNumberOfMunros() {
@@ -18,7 +25,9 @@ final class MunroQueryExecutorTests: XCTestCase {
         let testStore = MockMunroStore(munros: testMunros)
         let expectedCount = testMunros.count
         
-        let queryResult = MunroQueryExecutor.execute(query, with: testStore)
+        guard let queryResult = try? MunroQueryExecutor.execute(query, with: testStore) else {
+            return XCTFail("Could not run query")
+        }
         
         switch queryResult {
         case .success(let munroArray):
@@ -38,7 +47,7 @@ final class MunroQueryExecutorTests: XCTestCase {
             testMunros.filter{ $0.category != nil }
         )
         
-        let queryResultAsSet = MunroQueryExecutor.execute(query, with: testStore)
+        let queryResultAsSet = try? MunroQueryExecutor.execute(query, with: testStore)
             .map({ Set($0) })
         
         
@@ -52,7 +61,7 @@ final class MunroQueryExecutorTests: XCTestCase {
         let testStore = MockMunroStore(munros: someRandos)
         let expectedResult: UnsortedQueryResult = .success(someRandosOnlyTops)
         
-        let queryResult = MunroQueryExecutor.execute(query, with: testStore).map({ Set($0) })
+        let queryResult = try? MunroQueryExecutor.execute(query, with: testStore).map({ Set($0) })
         
         XCTAssertEqual(expectedResult, queryResult)
     }
@@ -82,9 +91,9 @@ final class MunroQueryExecutorTests: XCTestCase {
         )
         let expectedResultMaximum: UnsortedQueryResult = .success(someRandosBelow2000)
         
-        let queryResultRange = MunroQueryExecutor.execute(rangeQuery, with: testStore).map({ Set($0) })
-        let queryResultMaximum = MunroQueryExecutor.execute(maximumQuery, with: testStore).map({ Set($0) })
-        let queryResultMinimum = MunroQueryExecutor.execute(minimumQuery, with: testStore).map({ Set($0) })
+        let queryResultRange = try? MunroQueryExecutor.execute(rangeQuery, with: testStore).map({ Set($0) })
+        let queryResultMaximum = try? MunroQueryExecutor.execute(maximumQuery, with: testStore).map({ Set($0) })
+        let queryResultMinimum = try? MunroQueryExecutor.execute(minimumQuery, with: testStore).map({ Set($0) })
         
         XCTAssertEqual(queryResultRange, expectedResultRange)
         XCTAssertEqual(queryResultMaximum, expectedResultMaximum)
@@ -102,7 +111,7 @@ final class MunroQueryExecutorTests: XCTestCase {
         let testStore = MockMunroStore(munros: someRandos)
         let expectedReuslt: SortedQueryResult = .success(someRandosAlphabetical)
         
-        let queryResult = MunroQueryExecutor.execute(query, with: testStore)
+        let queryResult = try? MunroQueryExecutor.execute(query, with: testStore)
         
         XCTAssertEqual(expectedReuslt, queryResult)
     }
@@ -118,7 +127,7 @@ final class MunroQueryExecutorTests: XCTestCase {
         let testStore = MockMunroStore(munros: someRandos)
         let expectedReuslt: SortedQueryResult = .success(someRandosHeightDecending)
         
-        let queryResult = MunroQueryExecutor.execute(query, with: testStore)
+        let queryResult = try? MunroQueryExecutor.execute(query, with: testStore)
         
         XCTAssertEqual(expectedReuslt, queryResult)
     }
@@ -134,7 +143,7 @@ final class MunroQueryExecutorTests: XCTestCase {
         let testStore = MockMunroStore(munros: someRandos)
         let expectedReuslt: SortedQueryResult = .success(someRandosHeightDecending.reversed())
         
-        let queryResult = MunroQueryExecutor.execute(query, with: testStore)
+        let queryResult = try? MunroQueryExecutor.execute(query, with: testStore)
         
         XCTAssertEqual(expectedReuslt, queryResult)
     }
