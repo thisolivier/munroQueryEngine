@@ -8,12 +8,8 @@ final class MunroStoreTests: XCTestCase {
         ("testStoreProvidesCorrectData", testStoreProvidesCorrectData)
     ]
     
+    let expectedMunros: Set<Munro> = munrosBinneinAdrianAdrian
     let testFilePathComponent: String = "testMunroCSV.csv"
-    let expectedMunros: Set<Munro> = [
-        Munro(heightMeters: 1165, category: .munro, name: "Stob Binnein", runningNumber: 6),
-        Munro(heightMeters: 1044.9, category: nil, name: "Cruach Ardrain SW Top", runningNumber: 10),
-        Munro(heightMeters: 1045.9, category: .munro, name: "Cruach Ardrain", runningNumber: 11)
-    ]
     
     func testCanMakeStore() {
         let store: MunroStorable = MunroCSVStore(from: URL(fileURLWithPath: ""))

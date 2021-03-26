@@ -8,8 +8,8 @@
 import Foundation
 
 public struct Munro: Hashable {
-    let heightMeters: Float
-    let category: MunroCategory?
-    let name: String
-    let runningNumber: UInt
+    public let heightMeters: Float
+    public let category: MunroCategory?
+    public let name: String
+    public let runningNumber: UInt
 }
