@@ -90,10 +90,54 @@ final class MunroQueryExecutorTests: XCTestCase {
         XCTAssertEqual(queryResultMaximum, expectedResultMaximum)
         XCTAssertEqual(queryResultMinimum, expectedResultMinimum)
     }
-}
-
-enum MunroQueryEngineError: Equatable, Error {
-    case queryExecutorError, munroCsvStoreError
+    
+    func testDescendingNameSorting() {
+        let sorting = MunroQuerySorting(
+            order: .descending,
+            propertyToSortBy: .name
+        )
+        guard let query = try? MunroQuery(sorting: sorting) else {
+            return XCTFail("Could not initialise query")
+        }
+        let testStore = MockMunroStore(munros: someRandos)
+        let expectedReuslt: SortedQueryResult = .success(someRandosAlphabetical)
+        
+        let queryResult = MunroQueryExecutor.execute(query, with: testStore)
+        
+        XCTAssertEqual(expectedReuslt, queryResult)
+    }
+    
+    func testDescendingHeightSorting() {
+        let sorting = MunroQuerySorting(
+            order: .descending,
+            propertyToSortBy: .height
+        )
+        guard let query = try? MunroQuery(sorting: sorting) else {
+            return XCTFail("Could not initialise query")
+        }
+        let testStore = MockMunroStore(munros: someRandos)
+        let expectedReuslt: SortedQueryResult = .success(someRandosHeightDecending)
+        
+        let queryResult = MunroQueryExecutor.execute(query, with: testStore)
+        
+        XCTAssertEqual(expectedReuslt, queryResult)
+    }
+    
+    func testAscendingHeightSorting() {
+        let sorting = MunroQuerySorting(
+            order: .ascending,
+            propertyToSortBy: .height
+        )
+        guard let query = try? MunroQuery(sorting: sorting) else {
+            return XCTFail("Could not initialise query")
+        }
+        let testStore = MockMunroStore(munros: someRandos)
+        let expectedReuslt: SortedQueryResult = .success(someRandosHeightDecending.reversed())
+        
+        let queryResult = MunroQueryExecutor.execute(query, with: testStore)
+        
+        XCTAssertEqual(expectedReuslt, queryResult)
+    }
 }
 
 struct MockMunroStore: MunroStorable {

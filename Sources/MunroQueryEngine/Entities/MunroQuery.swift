@@ -24,7 +24,7 @@ public struct MunroQuery {
         case let (.some(lowerHeight), .some(upperHeight)) where lowerHeight <= upperHeight:
             heightRange = lowerHeight...upperHeight
         case (.some(_), .some(_)):
-            throw MunroQueryError.badHeightRange
+            throw MunroQueryEngineError.queryError(.badHeightRange)
         case let (nil, .some(upperHeight)):
             heightRange = Float.leastNormalMagnitude...upperHeight
         case let (.some(lowerHeight), nil):
@@ -33,8 +33,4 @@ public struct MunroQuery {
             heightRange = nil
         }
     }
-}
-
-enum MunroQueryError: Error {
-    case badHeightRange
 }
