@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Munro: Equatable {
+public struct Munro: Hashable {
     let heightMeters: Float
     let category: MunroCategory?
     let name: String

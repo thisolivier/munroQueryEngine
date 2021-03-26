@@ -6,7 +6,8 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(MunroTests.allTests),
         testCase(MunroQueryTests.allTests),
         testCase(MunroQuerySortingTests.allTests),
-        testCase(MunroStoreTests.allTests)
+        testCase(MunroStoreTests.allTests),
+        testCase(MunroCategoryTests.allTests)
     ]
 }
 #endif

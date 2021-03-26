@@ -13,9 +13,13 @@ let package = Package(
     targets: [
         .target(
             name: "MunroQueryEngine",
-            dependencies: []),
+            dependencies: [],
+            resources: [.copy("munrotab_v6.2.csv")]
+        ),
         .testTarget(
             name: "MunroQueryEngineTests",
-            dependencies: ["MunroQueryEngine"]),
+            dependencies: ["MunroQueryEngine"],
+            resources: [.copy("munrotab_v6.2.csv")]
+        )
     ]
 )
