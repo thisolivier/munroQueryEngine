@@ -13,7 +13,7 @@
 		09018FF9260EB5E400C1CA25 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09018FF7260EB5E400C1CA25 /* Main.storyboard */; };
 		09018FFB260EB5E400C1CA25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09018FFA260EB5E400C1CA25 /* Assets.xcassets */; };
 		09018FFE260EB5E400C1CA25 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09018FFC260EB5E400C1CA25 /* LaunchScreen.storyboard */; };
-		0901900A260EB76A00C1CA25 /* MunroQueryEngine in Frameworks */ = {isa = PBXBuildFile; productRef = 09019009260EB76A00C1CA25 /* MunroQueryEngine */; };
+		0901900F260EB86B00C1CA25 /* MunroQueryEngine in Frameworks */ = {isa = PBXBuildFile; productRef = 0901900E260EB86B00C1CA25 /* MunroQueryEngine */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,7 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0901900A260EB76A00C1CA25 /* MunroQueryEngine in Frameworks */,
+				0901900F260EB86B00C1CA25 /* MunroQueryEngine in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,7 +94,7 @@
 			);
 			name = MunroTestApp;
 			packageProductDependencies = (
-				09019009260EB76A00C1CA25 /* MunroQueryEngine */,
+				0901900E260EB86B00C1CA25 /* MunroQueryEngine */,
 			);
 			productName = MunroTestApp;
 			productReference = 09018FEE260EB5E400C1CA25 /* MunroTestApp.app */;
@@ -370,7 +370,7 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		09019009260EB76A00C1CA25 /* MunroQueryEngine */ = {
+		0901900E260EB86B00C1CA25 /* MunroQueryEngine */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 09019008260EB76A00C1CA25 /* XCRemoteSwiftPackageReference "munroQueryEngine" */;
 			productName = MunroQueryEngine;

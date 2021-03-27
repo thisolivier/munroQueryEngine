@@ -15,8 +15,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        let MunroQueryController = MunroQueryEngineController()
-        
+        let munroQueryController = MunroQueryEngineController()
+        do {
+            let query = try MunroQuery()
+            print(munroQueryController.makeQuery(query))
+        } catch {
+            print(error)
+        }
         return true
     }
 
