@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct MunroQuery {
+public struct MunroQuery: Equatable {
     let heightRange: ClosedRange<Float>?
     let categoryFilter: MunroCategory?
     let sorting: MunroQuerySorting?

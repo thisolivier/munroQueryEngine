@@ -8,7 +8,7 @@
 import Foundation
 
 public enum MunroQueryEngineError: Equatable, Error {
-    case queryError(MunroQueryError), storeError
+    case queryError(MunroQueryError), storeError, unknownError
 }
 
 public enum MunroQueryError: Error {
