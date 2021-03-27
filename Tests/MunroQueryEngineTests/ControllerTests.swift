@@ -52,6 +52,10 @@ final class MunroQueryEngineControllerTests: XCTestCase {
         XCTAssertEqual(MockQueryExecutor.queryReceived, testQuery)
         XCTAssertNotNil(MockQueryExecutor.storeReceived)
     }
+    
+    func testControllerLoadsDefaultData() {
+        // TODO: Fill this in
+    }
 }
 
 enum MockQueryExecutor: MunroQueryExecutable {
