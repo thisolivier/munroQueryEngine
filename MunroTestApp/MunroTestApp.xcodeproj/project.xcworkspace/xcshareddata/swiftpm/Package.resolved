@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "MunroQueryEngine",
+        "repositoryURL": "https://github.com/thisolivier/munroQueryEngine",
+        "state": {
+          "branch": "main",
+          "revision": "e67b37e4b109951c2eb5d156fec53aa03c979987",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

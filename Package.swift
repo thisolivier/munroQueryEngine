@@ -4,6 +4,9 @@ import PackageDescription
 
 let package = Package(
     name: "MunroQueryEngine",
+    platforms: [
+        .macOS(.v10_14), .iOS(.v13), .tvOS(.v13)
+    ],
     products: [
         .library(
             name: "MunroQueryEngine",
@@ -19,6 +22,10 @@ let package = Package(
         .testTarget(
             name: "MunroQueryEngineTests",
             dependencies: ["MunroQueryEngine"]
+        ),
+        .binaryTarget(
+            name: "SomeLocalBinaryPackage",
+            path: "MunroTestApp/to/some.xcframework"
         )
     ]
 )
