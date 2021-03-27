@@ -10,6 +10,10 @@ public class MunroQueryEngineController: MunroQueryEngineControllable {
     var dataStore: MunroStorable?
     var queryExecutor: MunroQueryExecutable.Type = MunroQueryExecutor.self
     
+    public init() {
+        self.dataStore = nil
+    }
+    
     public func loadCsvData(from url: URL? = nil) throws {
         let backupUrl = Bundle.module.url(forResource: "defaultMunroData", withExtension: "csv")!
         self.dataStore = MunroCSVStore(from: url ?? backupUrl)
