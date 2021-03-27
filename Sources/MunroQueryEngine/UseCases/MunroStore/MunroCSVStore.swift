@@ -34,7 +34,7 @@ public class MunroCSVStore: MunroStorable {
     }
     
     private static func loadDataFromFile(location: URL) -> [[String]] {
-        guard let stringContents = try? String(contentsOf: location, encoding: .utf8) else {
+        guard let stringContents = try? String(contentsOf: location, encoding: .ascii) else {
             return []
         }
         return stringContents

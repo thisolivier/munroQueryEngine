@@ -10,13 +10,21 @@ public class MunroQueryEngineController: MunroQueryEngineControllable {
     var dataStore: MunroStorable?
     var queryExecutor: MunroQueryExecutable.Type = MunroQueryExecutor.self
     
+    private var defaultDataSetUrl: URL? {
+        URL(fileURLWithPath: #file)
+            .deletingLastPathComponent()
+            .appendingPathComponent("defaultMunroData.csv")
+    }
+    
     public init() {
         self.dataStore = nil
     }
     
     public func loadCsvData(from url: URL? = nil) throws {
-        let backupUrl = Bundle.module.url(forResource: "defaultMunroData", withExtension: "csv")!
-        self.dataStore = MunroCSVStore(from: url ?? backupUrl)
+        guard let realUrl = url ?? defaultDataSetUrl else {
+            throw MunroQueryEngineError.storeError
+        }
+        self.dataStore = MunroCSVStore(from: realUrl)
     }
     
     public func makeQuery(_ query: MunroQuery) -> Result<[Munro], MunroQueryEngineError> {

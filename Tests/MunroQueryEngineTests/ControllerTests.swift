@@ -34,6 +34,19 @@ final class MunroQueryEngineControllerTests: XCTestCase {
         XCTAssertEqual(csvStore.munros, expectedStoredMunros)
     }
     
+    func testControllerLoadsDefaultData() {
+        let testController = MunroQueryEngineController()
+        
+        do { try testController.loadCsvData() } catch {
+            XCTFail("Threw unexpected error \(error)")
+        }
+        
+        guard let csvStore = testController.dataStore as? MunroCSVStore else {
+            return XCTFail("Controller made wrong kind of store")
+        }
+        XCTAssertFalse(csvStore.munros.isEmpty)
+    }
+    
     func testControllerHasQueryExecutor() {
         let testController = MunroQueryEngineController()
         
@@ -51,10 +64,6 @@ final class MunroQueryEngineControllerTests: XCTestCase {
         
         XCTAssertEqual(MockQueryExecutor.queryReceived, testQuery)
         XCTAssertNotNil(MockQueryExecutor.storeReceived)
-    }
-    
-    func testControllerLoadsDefaultData() {
-        // TODO: Fill this in
     }
 }
 
